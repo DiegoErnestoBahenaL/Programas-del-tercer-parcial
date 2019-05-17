@@ -78,6 +78,7 @@ namespace WindowsFormsApplication1
                 timer1.Stop();  
                 button2.Enabled = false;
                 timer4.Enabled = true;
+                textBox1.Enabled = false;
                 
                
                
