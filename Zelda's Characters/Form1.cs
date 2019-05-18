@@ -16,5 +16,21 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ( e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                comboBox1.Items.Add(textBox1.Text); 
+                listBox1.Items.Add(textBox1.Text);
+                textBox1.Text = ("");
+               
+            }
+        }
     }
 }
