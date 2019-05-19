@@ -29,66 +29,71 @@
         private void InitializeComponent()
         {
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.Enter_character = new System.Windows.Forms.TextBox();
+            this.serch_character = new System.Windows.Forms.TextBox();
+            this.characters_names = new System.Windows.Forms.ListBox();
+            this.Character_picture = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.Character_picture)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(546, 111);
+            this.comboBox1.Location = new System.Drawing.Point(263, 64);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(188, 21);
+            this.comboBox1.Size = new System.Drawing.Size(266, 21);
             this.comboBox1.TabIndex = 0;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // textBox1
+            // Enter_character
             // 
-            this.textBox1.Location = new System.Drawing.Point(546, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(188, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.Enter_character.Location = new System.Drawing.Point(263, 14);
+            this.Enter_character.Name = "Enter_character";
+            this.Enter_character.Size = new System.Drawing.Size(266, 20);
+            this.Enter_character.TabIndex = 1;
+            this.Enter_character.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.Enter_character.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
-            // textBox2
+            // serch_character
             // 
-            this.textBox2.Location = new System.Drawing.Point(546, 416);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(188, 20);
-            this.textBox2.TabIndex = 2;
+            this.serch_character.Location = new System.Drawing.Point(263, 638);
+            this.serch_character.Name = "serch_character";
+            this.serch_character.Size = new System.Drawing.Size(266, 20);
+            this.serch_character.TabIndex = 2;
+            this.serch_character.TextChanged += new System.EventHandler(this.serch_character_TextChanged);
             // 
-            // listBox1
+            // characters_names
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(24, 56);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(127, 342);
-            this.listBox1.TabIndex = 3;
+            this.characters_names.FormattingEnabled = true;
+            this.characters_names.Location = new System.Drawing.Point(27, 31);
+            this.characters_names.Name = "characters_names";
+            this.characters_names.Size = new System.Drawing.Size(120, 459);
+            this.characters_names.TabIndex = 3;
+            this.characters_names.SelectedIndexChanged += new System.EventHandler(this.characters_names_SelectedIndexChanged);
             // 
-            // pictureBox1
+            // Character_picture
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(194, 42);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(273, 368);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.Character_picture.Location = new System.Drawing.Point(250, 118);
+            this.Character_picture.Name = "Character_picture";
+            this.Character_picture.Size = new System.Drawing.Size(304, 326);
+            this.Character_picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Character_picture.TabIndex = 4;
+            this.Character_picture.TabStop = false;
+            this.Character_picture.Click += new System.EventHandler(this.Character_picture_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 489);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(593, 683);
+            this.Controls.Add(this.Character_picture);
+            this.Controls.Add(this.characters_names);
+            this.Controls.Add(this.serch_character);
+            this.Controls.Add(this.Enter_character);
             this.Controls.Add(this.comboBox1);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Character_picture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -97,10 +102,10 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox Enter_character;
+        private System.Windows.Forms.TextBox serch_character;
+        private System.Windows.Forms.ListBox characters_names;
+        private System.Windows.Forms.PictureBox Character_picture;
     }
 }
 
