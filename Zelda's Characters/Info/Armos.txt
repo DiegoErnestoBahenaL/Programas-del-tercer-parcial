@@ -1,0 +1,5 @@
+Son estatuas que reviven al ser tocadas o al acercarse a ellas.
+En este juego poseen un estilo unico, el de dos caras que tendran su propia sistema de pelea. 
+La cara "enojada" es muy agresiva y salta muy rapido hacia Link, mientras que la cara "feliz" 
+es mas tranquila y salta mas lentamente. En esta ocasion solo cobraran vida si se activa un
+Cronolito que retrocede el tiempo cerca de ellos.

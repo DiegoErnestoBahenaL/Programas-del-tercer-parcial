@@ -51,10 +51,11 @@ namespace WindowsFormsApplication1
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            richTextBox1.Text = ("");
             timer3.Enabled = true;
             Character_picture.Visible = false;
             richTextBox1.Visible = false;
-
+          
             Character_picture.Load(@"..\..\Images\" + comboBox1.Text + ".jpg");
             StreamReader read_info = new StreamReader(@"..\..\Info\" + comboBox1.Text + ".txt");
 
@@ -123,6 +124,7 @@ namespace WindowsFormsApplication1
                 timer1.Stop();
                 progressBar1.Visible = false;
                 ticks = 0;
+                color_random();
                 Character_picture.Visible = true;
                 richTextBox1.Visible = true;
                 comboBox1.Items.Add(Enter_character.Text);
@@ -164,7 +166,7 @@ namespace WindowsFormsApplication1
                 ticks1 = 0;
                 Character_picture.Visible = true;
                 richTextBox1.Visible = true;
-
+                color_random();
                 Character_picture.Load(@"..\..\Images\" + search_character.Text + ".jpg");
 
                 StreamReader read_info = new StreamReader(@"..\..\Info\" + search_character.Text + ".txt");
@@ -193,8 +195,29 @@ namespace WindowsFormsApplication1
                 progressBar1.Visible = false;
                 ticks2 = 0;
                 Character_picture.Visible = true;
-                richTextBox1.Visible = true;
+                richTextBox1.Visible = true;  
+                color_random();
             }
+         
         }
+        //Función para obtener un color aleatorio
+        void color_random()
+        {
+            //la función utiliza el metodo FromArgb, combinando tres variables aleatorias del 1 al 255 (rango de color) para
+            //obtener un color segun la combinación RGB. rango1 tomese como "red", rango 2 como "blue" y rango3 como "green"  
+            //El color resultante se refleja en el back color de la form;
+            Random colors = new Random(DateTime.Now.Millisecond);
+            int rango1 = colors.Next(1, 255);
+            int rango2 = colors.Next(1, 255);
+            int rango3 = colors.Next(1, 255);
+            Form1.ActiveForm.BackColor = Color.FromArgb(rango1, rango2, rango3);
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
