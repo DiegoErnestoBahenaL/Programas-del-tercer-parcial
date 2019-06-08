@@ -251,6 +251,7 @@
             this.btn_result.TabIndex = 14;
             this.btn_result.Text = "=";
             this.btn_result.UseVisualStyleBackColor = true;
+            this.btn_result.Click += new System.EventHandler(this.btn_result_Click);
             // 
             // btn_sum
             // 
@@ -261,6 +262,7 @@
             this.btn_sum.TabIndex = 15;
             this.btn_sum.Text = "+";
             this.btn_sum.UseVisualStyleBackColor = true;
+            this.btn_sum.Click += new System.EventHandler(this.btn_sum_Click);
             // 
             // btn_CE
             // 

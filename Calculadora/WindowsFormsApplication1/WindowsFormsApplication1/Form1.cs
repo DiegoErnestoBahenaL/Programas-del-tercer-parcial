@@ -12,6 +12,8 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        
+        int number = 0;
         public Form1()
         {
             InitializeComponent();
@@ -86,6 +88,21 @@ namespace WindowsFormsApplication1
 
         private void btn_CE_Click(object sender, EventArgs e)
         {
+            txbx_screen.Text = ("");
+        }
+
+        private void btn_result_Click(object sender, EventArgs e)
+        {
+            txbx_screen.Text = Convert.ToString(number);
+        }
+
+        private void btn_sum_Click(object sender, EventArgs e)
+        {
+            
+            number 
+                
+                
+                = Convert.ToInt32(txbx_screen);
             txbx_screen.Text = ("");
         }
 
