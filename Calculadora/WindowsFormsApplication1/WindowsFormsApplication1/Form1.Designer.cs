@@ -30,22 +30,22 @@
         {
             this.txbx_screen = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_seven = new System.Windows.Forms.Button();
-            this.btn_eight = new System.Windows.Forms.Button();
-            this.btn_nine = new System.Windows.Forms.Button();
-            this.btn_multp = new System.Windows.Forms.Button();
-            this.btn_four = new System.Windows.Forms.Button();
-            this.btn_five = new System.Windows.Forms.Button();
-            this.btn_six = new System.Windows.Forms.Button();
-            this.btn_division = new System.Windows.Forms.Button();
-            this.btn_one = new System.Windows.Forms.Button();
-            this.btn_two = new System.Windows.Forms.Button();
-            this.btn_three = new System.Windows.Forms.Button();
-            this.btn_rest = new System.Windows.Forms.Button();
-            this.btn_zero = new System.Windows.Forms.Button();
-            this.btn_dot = new System.Windows.Forms.Button();
-            this.btn_result = new System.Windows.Forms.Button();
             this.btn_sum = new System.Windows.Forms.Button();
+            this.btn_result = new System.Windows.Forms.Button();
+            this.btn_dot = new System.Windows.Forms.Button();
+            this.btn_zero = new System.Windows.Forms.Button();
+            this.btn_rest = new System.Windows.Forms.Button();
+            this.btn_three = new System.Windows.Forms.Button();
+            this.btn_two = new System.Windows.Forms.Button();
+            this.btn_one = new System.Windows.Forms.Button();
+            this.btn_division = new System.Windows.Forms.Button();
+            this.btn_six = new System.Windows.Forms.Button();
+            this.btn_five = new System.Windows.Forms.Button();
+            this.btn_four = new System.Windows.Forms.Button();
+            this.btn_multp = new System.Windows.Forms.Button();
+            this.btn_nine = new System.Windows.Forms.Button();
+            this.btn_eight = new System.Windows.Forms.Button();
+            this.btn_seven = new System.Windows.Forms.Button();
             this.btn_CE = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -90,157 +90,16 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(204, 134);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // btn_seven
+            // btn_sum
             // 
-            this.btn_seven.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_seven.Location = new System.Drawing.Point(3, 3);
-            this.btn_seven.Name = "btn_seven";
-            this.btn_seven.Size = new System.Drawing.Size(45, 27);
-            this.btn_seven.TabIndex = 0;
-            this.btn_seven.Text = "7";
-            this.btn_seven.UseVisualStyleBackColor = true;
-            this.btn_seven.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btn_eight
-            // 
-            this.btn_eight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_eight.Location = new System.Drawing.Point(54, 3);
-            this.btn_eight.Name = "btn_eight";
-            this.btn_eight.Size = new System.Drawing.Size(45, 27);
-            this.btn_eight.TabIndex = 1;
-            this.btn_eight.Text = "8";
-            this.btn_eight.UseVisualStyleBackColor = true;
-            this.btn_eight.Click += new System.EventHandler(this.btn_eight_Click);
-            // 
-            // btn_nine
-            // 
-            this.btn_nine.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_nine.Location = new System.Drawing.Point(105, 3);
-            this.btn_nine.Name = "btn_nine";
-            this.btn_nine.Size = new System.Drawing.Size(45, 27);
-            this.btn_nine.TabIndex = 2;
-            this.btn_nine.Text = "9";
-            this.btn_nine.UseVisualStyleBackColor = true;
-            this.btn_nine.Click += new System.EventHandler(this.btn_nine_Click);
-            // 
-            // btn_multp
-            // 
-            this.btn_multp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_multp.Location = new System.Drawing.Point(156, 3);
-            this.btn_multp.Name = "btn_multp";
-            this.btn_multp.Size = new System.Drawing.Size(45, 27);
-            this.btn_multp.TabIndex = 3;
-            this.btn_multp.Text = "x";
-            this.btn_multp.UseVisualStyleBackColor = true;
-            // 
-            // btn_four
-            // 
-            this.btn_four.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_four.Location = new System.Drawing.Point(3, 36);
-            this.btn_four.Name = "btn_four";
-            this.btn_four.Size = new System.Drawing.Size(45, 27);
-            this.btn_four.TabIndex = 4;
-            this.btn_four.Text = "4";
-            this.btn_four.UseVisualStyleBackColor = true;
-            this.btn_four.Click += new System.EventHandler(this.btn_four_Click);
-            // 
-            // btn_five
-            // 
-            this.btn_five.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_five.Location = new System.Drawing.Point(54, 36);
-            this.btn_five.Name = "btn_five";
-            this.btn_five.Size = new System.Drawing.Size(45, 27);
-            this.btn_five.TabIndex = 5;
-            this.btn_five.Text = "5";
-            this.btn_five.UseVisualStyleBackColor = true;
-            this.btn_five.Click += new System.EventHandler(this.btn_five_Click);
-            // 
-            // btn_six
-            // 
-            this.btn_six.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_six.Location = new System.Drawing.Point(105, 36);
-            this.btn_six.Name = "btn_six";
-            this.btn_six.Size = new System.Drawing.Size(45, 27);
-            this.btn_six.TabIndex = 6;
-            this.btn_six.Text = "6";
-            this.btn_six.UseVisualStyleBackColor = true;
-            this.btn_six.Click += new System.EventHandler(this.btn_six_Click);
-            // 
-            // btn_division
-            // 
-            this.btn_division.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_division.Location = new System.Drawing.Point(156, 36);
-            this.btn_division.Name = "btn_division";
-            this.btn_division.Size = new System.Drawing.Size(45, 27);
-            this.btn_division.TabIndex = 7;
-            this.btn_division.Text = "/";
-            this.btn_division.UseVisualStyleBackColor = true;
-            this.btn_division.Click += new System.EventHandler(this.btn_division_Click);
-            // 
-            // btn_one
-            // 
-            this.btn_one.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_one.Location = new System.Drawing.Point(3, 69);
-            this.btn_one.Name = "btn_one";
-            this.btn_one.Size = new System.Drawing.Size(45, 27);
-            this.btn_one.TabIndex = 8;
-            this.btn_one.Text = "1";
-            this.btn_one.UseVisualStyleBackColor = true;
-            this.btn_one.Click += new System.EventHandler(this.btn_one_Click);
-            // 
-            // btn_two
-            // 
-            this.btn_two.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_two.Location = new System.Drawing.Point(54, 69);
-            this.btn_two.Name = "btn_two";
-            this.btn_two.Size = new System.Drawing.Size(45, 27);
-            this.btn_two.TabIndex = 9;
-            this.btn_two.Text = "2";
-            this.btn_two.UseVisualStyleBackColor = true;
-            this.btn_two.Click += new System.EventHandler(this.btn_two_Click);
-            // 
-            // btn_three
-            // 
-            this.btn_three.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_three.Location = new System.Drawing.Point(105, 69);
-            this.btn_three.Name = "btn_three";
-            this.btn_three.Size = new System.Drawing.Size(45, 27);
-            this.btn_three.TabIndex = 10;
-            this.btn_three.Text = "3";
-            this.btn_three.UseVisualStyleBackColor = true;
-            this.btn_three.Click += new System.EventHandler(this.btn_three_Click);
-            // 
-            // btn_rest
-            // 
-            this.btn_rest.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_rest.Location = new System.Drawing.Point(156, 69);
-            this.btn_rest.Name = "btn_rest";
-            this.btn_rest.Size = new System.Drawing.Size(45, 27);
-            this.btn_rest.TabIndex = 11;
-            this.btn_rest.Text = "-";
-            this.btn_rest.UseVisualStyleBackColor = true;
-            // 
-            // btn_zero
-            // 
-            this.btn_zero.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_zero.Location = new System.Drawing.Point(3, 102);
-            this.btn_zero.Name = "btn_zero";
-            this.btn_zero.Size = new System.Drawing.Size(45, 29);
-            this.btn_zero.TabIndex = 12;
-            this.btn_zero.Text = "0";
-            this.btn_zero.UseVisualStyleBackColor = true;
-            this.btn_zero.Click += new System.EventHandler(this.btn_zero_Click);
-            // 
-            // btn_dot
-            // 
-            this.btn_dot.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_dot.Location = new System.Drawing.Point(54, 102);
-            this.btn_dot.Name = "btn_dot";
-            this.btn_dot.Size = new System.Drawing.Size(45, 29);
-            this.btn_dot.TabIndex = 13;
-            this.btn_dot.Text = ".";
-            this.btn_dot.UseVisualStyleBackColor = true;
-            this.btn_dot.Click += new System.EventHandler(this.btn_dot_Click);
+            this.btn_sum.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_sum.Location = new System.Drawing.Point(156, 102);
+            this.btn_sum.Name = "btn_sum";
+            this.btn_sum.Size = new System.Drawing.Size(45, 29);
+            this.btn_sum.TabIndex = 15;
+            this.btn_sum.Text = "+";
+            this.btn_sum.UseVisualStyleBackColor = true;
+            this.btn_sum.Click += new System.EventHandler(this.btn_sum_Click);
             // 
             // btn_result
             // 
@@ -253,16 +112,159 @@
             this.btn_result.UseVisualStyleBackColor = true;
             this.btn_result.Click += new System.EventHandler(this.btn_result_Click);
             // 
-            // btn_sum
+            // btn_dot
             // 
-            this.btn_sum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_sum.Location = new System.Drawing.Point(156, 102);
-            this.btn_sum.Name = "btn_sum";
-            this.btn_sum.Size = new System.Drawing.Size(45, 29);
-            this.btn_sum.TabIndex = 15;
-            this.btn_sum.Text = "+";
-            this.btn_sum.UseVisualStyleBackColor = true;
-            this.btn_sum.Click += new System.EventHandler(this.btn_sum_Click);
+            this.btn_dot.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_dot.Location = new System.Drawing.Point(54, 102);
+            this.btn_dot.Name = "btn_dot";
+            this.btn_dot.Size = new System.Drawing.Size(45, 29);
+            this.btn_dot.TabIndex = 13;
+            this.btn_dot.Text = ".";
+            this.btn_dot.UseVisualStyleBackColor = true;
+            this.btn_dot.Click += new System.EventHandler(this.btn_dot_Click);
+            // 
+            // btn_zero
+            // 
+            this.btn_zero.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_zero.Location = new System.Drawing.Point(3, 102);
+            this.btn_zero.Name = "btn_zero";
+            this.btn_zero.Size = new System.Drawing.Size(45, 29);
+            this.btn_zero.TabIndex = 12;
+            this.btn_zero.Text = "0";
+            this.btn_zero.UseVisualStyleBackColor = true;
+            this.btn_zero.Click += new System.EventHandler(this.btn_zero_Click);
+            // 
+            // btn_rest
+            // 
+            this.btn_rest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_rest.Location = new System.Drawing.Point(156, 69);
+            this.btn_rest.Name = "btn_rest";
+            this.btn_rest.Size = new System.Drawing.Size(45, 27);
+            this.btn_rest.TabIndex = 11;
+            this.btn_rest.Text = "-";
+            this.btn_rest.UseVisualStyleBackColor = true;
+            this.btn_rest.Click += new System.EventHandler(this.btn_rest_Click);
+            // 
+            // btn_three
+            // 
+            this.btn_three.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_three.Location = new System.Drawing.Point(105, 69);
+            this.btn_three.Name = "btn_three";
+            this.btn_three.Size = new System.Drawing.Size(45, 27);
+            this.btn_three.TabIndex = 10;
+            this.btn_three.Text = "3";
+            this.btn_three.UseVisualStyleBackColor = true;
+            this.btn_three.Click += new System.EventHandler(this.btn_three_Click);
+            // 
+            // btn_two
+            // 
+            this.btn_two.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_two.Location = new System.Drawing.Point(54, 69);
+            this.btn_two.Name = "btn_two";
+            this.btn_two.Size = new System.Drawing.Size(45, 27);
+            this.btn_two.TabIndex = 9;
+            this.btn_two.Text = "2";
+            this.btn_two.UseVisualStyleBackColor = true;
+            this.btn_two.Click += new System.EventHandler(this.btn_two_Click);
+            // 
+            // btn_one
+            // 
+            this.btn_one.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_one.Location = new System.Drawing.Point(3, 69);
+            this.btn_one.Name = "btn_one";
+            this.btn_one.Size = new System.Drawing.Size(45, 27);
+            this.btn_one.TabIndex = 8;
+            this.btn_one.Text = "1";
+            this.btn_one.UseVisualStyleBackColor = true;
+            this.btn_one.Click += new System.EventHandler(this.btn_one_Click);
+            // 
+            // btn_division
+            // 
+            this.btn_division.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_division.Location = new System.Drawing.Point(156, 36);
+            this.btn_division.Name = "btn_division";
+            this.btn_division.Size = new System.Drawing.Size(45, 27);
+            this.btn_division.TabIndex = 7;
+            this.btn_division.Text = "/";
+            this.btn_division.UseVisualStyleBackColor = true;
+            this.btn_division.Click += new System.EventHandler(this.btn_division_Click);
+            // 
+            // btn_six
+            // 
+            this.btn_six.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_six.Location = new System.Drawing.Point(105, 36);
+            this.btn_six.Name = "btn_six";
+            this.btn_six.Size = new System.Drawing.Size(45, 27);
+            this.btn_six.TabIndex = 6;
+            this.btn_six.Text = "6";
+            this.btn_six.UseVisualStyleBackColor = true;
+            this.btn_six.Click += new System.EventHandler(this.btn_six_Click);
+            // 
+            // btn_five
+            // 
+            this.btn_five.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_five.Location = new System.Drawing.Point(54, 36);
+            this.btn_five.Name = "btn_five";
+            this.btn_five.Size = new System.Drawing.Size(45, 27);
+            this.btn_five.TabIndex = 5;
+            this.btn_five.Text = "5";
+            this.btn_five.UseVisualStyleBackColor = true;
+            this.btn_five.Click += new System.EventHandler(this.btn_five_Click);
+            // 
+            // btn_four
+            // 
+            this.btn_four.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_four.Location = new System.Drawing.Point(3, 36);
+            this.btn_four.Name = "btn_four";
+            this.btn_four.Size = new System.Drawing.Size(45, 27);
+            this.btn_four.TabIndex = 4;
+            this.btn_four.Text = "4";
+            this.btn_four.UseVisualStyleBackColor = true;
+            this.btn_four.Click += new System.EventHandler(this.btn_four_Click);
+            // 
+            // btn_multp
+            // 
+            this.btn_multp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_multp.Location = new System.Drawing.Point(156, 3);
+            this.btn_multp.Name = "btn_multp";
+            this.btn_multp.Size = new System.Drawing.Size(45, 27);
+            this.btn_multp.TabIndex = 3;
+            this.btn_multp.Text = "x";
+            this.btn_multp.UseVisualStyleBackColor = true;
+            this.btn_multp.Click += new System.EventHandler(this.btn_multp_Click);
+            // 
+            // btn_nine
+            // 
+            this.btn_nine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_nine.Location = new System.Drawing.Point(105, 3);
+            this.btn_nine.Name = "btn_nine";
+            this.btn_nine.Size = new System.Drawing.Size(45, 27);
+            this.btn_nine.TabIndex = 2;
+            this.btn_nine.Text = "9";
+            this.btn_nine.UseVisualStyleBackColor = true;
+            this.btn_nine.Click += new System.EventHandler(this.btn_nine_Click);
+            // 
+            // btn_eight
+            // 
+            this.btn_eight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_eight.Location = new System.Drawing.Point(54, 3);
+            this.btn_eight.Name = "btn_eight";
+            this.btn_eight.Size = new System.Drawing.Size(45, 27);
+            this.btn_eight.TabIndex = 1;
+            this.btn_eight.Text = "8";
+            this.btn_eight.UseVisualStyleBackColor = true;
+            this.btn_eight.Click += new System.EventHandler(this.btn_eight_Click);
+            // 
+            // btn_seven
+            // 
+            this.btn_seven.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_seven.Location = new System.Drawing.Point(3, 3);
+            this.btn_seven.Name = "btn_seven";
+            this.btn_seven.Size = new System.Drawing.Size(45, 27);
+            this.btn_seven.TabIndex = 0;
+            this.btn_seven.Text = "7";
+            this.btn_seven.UseVisualStyleBackColor = true;
+            this.btn_seven.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_CE
             // 

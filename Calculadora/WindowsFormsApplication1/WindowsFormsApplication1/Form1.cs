@@ -12,8 +12,13 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        
-        int number = 0;
+
+        //string signo recibe qué operación se realizará
+        string signo = "";
+        //num1 y num2 reciben los numeros ingresados por el usuario
+        float num1 = 0;
+        float num2 = 0;
+                 
         public Form1()
         {
             InitializeComponent();
@@ -81,34 +86,78 @@ namespace WindowsFormsApplication1
         {
             txbx_screen.Text = (txbx_screen.Text + ".");
         }
-        private void btn_division_Click(object sender, EventArgs e)
+       //función que registra el primer numero ingresado por el usuario
+        void registrar_num1()
         {
+            num1 = float.Parse(txbx_screen.Text);
+            txbx_screen.Text = ("");
+        }
+        //pulsar btn_sum manda el signo de "+" a la variable signo
+        private void btn_sum_Click(object sender, EventArgs e)
+        {
+           signo = "+";
+           registrar_num1();
+          
+        }
+        //pulsar btn_rest manda "-" a la variable signo
+        private void btn_rest_Click(object sender, EventArgs e)
+        {
+            signo = "-";
+            registrar_num1();
 
         }
-
+        //pulsar btn_division manda "/" a la variable signo
+        private void btn_division_Click(object sender, EventArgs e)
+        {
+            signo = "/";
+            registrar_num1();
+        }
+        //pulsar btn_multp manda "*" a la variable signo
+        private void btn_multp_Click(object sender, EventArgs e)
+        {
+            signo = "*";
+            registrar_num1();
+        }
+    //En el btn_result depende el signo mandado la operación a realizar, pero en general realiza las operaciones
+        private void btn_result_Click(object sender, EventArgs e)
+        {
+                  //suma  
+                  if (signo == "+")
+                  {
+                      num2 = float.Parse (txbx_screen.Text);
+                      num1 += num2;
+                      txbx_screen.Text = Convert.ToString(num1);
+                  }
+                  //resta
+                  if (signo == "-")
+                  {
+                      num2 = float.Parse(txbx_screen.Text);
+                      num1 -= num2;
+                      txbx_screen.Text = Convert.ToString(num1);
+                  }
+                  //division
+                  if (signo == "/")
+                  {
+                      num2 = float.Parse(txbx_screen.Text);
+                      num1 /= num2;
+                      txbx_screen.Text = Convert.ToString(num1);
+                  }
+                  //multiplicación
+                  if (signo == "*")
+                  {
+                      num2 = float.Parse(txbx_screen.Text);
+                      num1 *= num2;
+                      txbx_screen.Text = Convert.ToString(num1);
+                  }
+        }
+       //pulsar btn_CE limpia la textbox y borra los datos de num1 y num2
         private void btn_CE_Click(object sender, EventArgs e)
         {
             txbx_screen.Text = ("");
+            num1 = 0;
+            num2 = 0;
+           
         }
-
-        private void btn_result_Click(object sender, EventArgs e)
-        {
-            txbx_screen.Text = Convert.ToString(number);
-        }
-
-        private void btn_sum_Click(object sender, EventArgs e)
-        {
-            
-            number 
-                
-                
-                = Convert.ToInt32(txbx_screen);
-            txbx_screen.Text = ("");
-        }
-
-        
-
-
 
        
 
