@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programa Black Jack", "Programa Black Jack\Programa Black Jack.csproj", "{66324DF6-4EDF-44A5-AC63-EDA6C47AD086}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programa Black Jack", "Programa Black Jack.csproj", "{66324DF6-4EDF-44A5-AC63-EDA6C47AD086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
