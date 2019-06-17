@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="btnoneplayer_Click.cs" />
+    <Compile Include="btnoneplayer_Click_2.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
