@@ -1,0 +1,5 @@
+Cuphead: 19
+Mugman: 18
+Elder Kettle: 22
+Devil: 19
+dealer:16

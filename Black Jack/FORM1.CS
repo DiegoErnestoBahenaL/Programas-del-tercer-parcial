@@ -29,7 +29,7 @@ namespace Programa_Black_Jack
         SoundPlayer GameSong;
 
 
-        //controles del juego
+        //controles de los personajes del  juego
         PictureBox Picbxdealer = new PictureBox();
         PictureBox Picbxplayer1 = new PictureBox();
         PictureBox Picbxplayer2 = new PictureBox();
@@ -38,10 +38,39 @@ namespace Programa_Black_Jack
         Label lbldealer = new Label ();
         Label lblplayer1 = new Label ();
         Label lblplayer2 = new Label();
-        Label lblplayer3 = new Label();
+        Label lblplayer3 = new Label();                       
         Label lblplayer4 = new Label();
 
         int num_jugadores;
+       
+
+        //Variables de los jugadores ( servirán para determinar sus posiciones)
+        int dealer_x;
+        int dealer_y;
+        int player1_x;
+        int player1_y;
+        int player2_x;
+        int player2_y;
+        int player3_x;
+        int player3_y;
+        int player4_x;
+        int player4_y;
+
+        //variables de puntos
+        int puntos_dealer;
+        int puntos_jugador1;
+        int puntos_jugador2;
+        int puntos_jugador3;
+        int puntos_jugador4;
+
+    
+
+        //Arreglo para la baraja
+        int [] Baraja  = new int [] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52};
+        int [] Baraja_puntos = new int []{0,2,3,4,5,6,7,8,9,10,10,10,10,0,2,3,4,5,6,7,8,9,10,10,10,10,0,2,3,4,5,6,7,8,9,10,10,10,10,0,2,3,4,5,6,7,8,9,10,10,10,10};
+        int numero_random;
+
+         Random numero_aleatorio = new Random();
 
 
 
@@ -52,25 +81,111 @@ namespace Programa_Black_Jack
           
         private void Form1_Load(object sender, EventArgs e)
         {
-            menu_inicio();     
+           menu_inicio();     
         }
 
         //Al dar click al boton de un jugador se cargará la partida para un solo jugador si el usuario presiona OK en la messagebox;
         //caso contrario, regresa al menu
          private void btnoneplayer_Click(object sender, EventArgs e)
          {
+
              DialogResult Question = MessageBox.Show("¿Seguro de qué solo habrá un jugador en la partida?", "Blackjack", MessageBoxButtons.OKCancel);
              if(Question == DialogResult.OK)
              {
                  num_jugadores = 1;
                  borrar_menu();
-                 pintar_mesa();
+                pintar_mesa();
                  dealer();
                  posicion_de_jugador();
                  player1();
+                 //Se hace el primer reparto de cartas
+                 DialogResult Conversation_first = MessageBox.Show("¿Listo? Si pierdes, ¡tu alma será mía!", "King Dice", MessageBoxButtons.OK);
+                 if (Conversation_first == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                  
+                  
+                 }
+                 DialogResult Conversation_second = MessageBox.Show("¡Comencemos!", "King Dice", MessageBoxButtons.OK);
+
+                 if (Conversation_second == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                 }
+                 //empieza el juego (situaciones iniciales: 21 o empate);
+                 if (puntos_jugador1 == 21)
+                 {
+                   DialogResult Win = MessageBox.Show("Parece que me has ganado", "King Dice", MessageBoxButtons.OK);
+                   puntos_1jugador();
+                   puntos_jugador1 = 22;
+                
+                 }
+                 //juego normal
+                 while (puntos_jugador1 < 21)
+                 {   
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " +puntos_jugador1+" puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card== DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador1(); 
+                         if (puntos_jugador1 > 21)
+                         {
+                           DialogResult Lose = MessageBox.Show("¡Has perdido!", "King Dice", MessageBoxButtons.OK);
+                           puntos_1jugador();
+                           break;
+                    
+                          }
+                          if (puntos_jugador1 == 21)
+                           {      
+                             dealer_perdio();
+                             puntos_1jugador();
+                             break;  
+                           }
+
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                
+                         DialogResult Dealer_points = MessageBox.Show("veamos quién gana", "King Dice", MessageBoxButtons.OK);  
+                         
+                 if (puntos_dealer > puntos_jugador1 && puntos_dealer < 21)
+                 {
+                     DialogResult Dealerpoints = MessageBox.Show("Ja, parece que gané!", "King Dice", MessageBoxButtons.OK);
+                     puntos_1jugador();
+                 }
+                 if (puntos_dealer == 21)
+                 {
+                     DialogResult Dealerpoints = MessageBox.Show("Ja, tu alma es mia!", "King Dice", MessageBoxButtons.OK);
+                     puntos_1jugador();
+                 }
+
+                 if (puntos_dealer < puntos_jugador1 && puntos_dealer < 21)
+                 {
+                     DialogResult Dealerpoints = MessageBox.Show("Me has ganado!", "King Dice", MessageBoxButtons.OK);
+                     puntos_1jugador();
+                 }
+                 if (puntos_jugador1 == puntos_dealer)
+                 {
+                     DialogResult Win = MessageBox.Show("Parece que es un empate", "King Dice", MessageBoxButtons.OK);
+                     puntos_1jugador();
+                        
+                 }
+                 break;
+                     }
+                
+                  }
+                 
               
              }
            
+         }
+
+         void dealer_perdio() 
+         {
+             DialogResult Win = MessageBox.Show("Parece que me has ganado", "King Dice", MessageBoxButtons.OK);
+  
          }
 
         //Al dar click al boton btntwoplayer se cargará la partida para dos jugadores si el usuario presiona OK en la messagebox
@@ -87,7 +202,120 @@ namespace Programa_Black_Jack
                  posicion_de_jugador();
                  player1 ();
                  player2 ();
-               
+                 //Se hace el primer reparto de cartas
+                 DialogResult Conversation_first = MessageBox.Show("¿Listos? Si pierden, ¡su alma será mía!", "King Dice", MessageBoxButtons.OK);
+                 if (Conversation_first == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                     carta_aleatoria_jugador2();
+
+                 }
+                 DialogResult Conversation_second = MessageBox.Show("¡Comencemos!", "King Dice", MessageBoxButtons.OK);
+
+                 if (Conversation_second == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                     carta_aleatoria_jugador2();
+                 }
+                 //empieza el juego (situaciones iniciales: 21 o empate);
+                 if (puntos_jugador1 == 21 || puntos_jugador2 == 21)
+                 {
+                     DialogResult Win = MessageBox.Show("Parece que me han ganado", "King Dice", MessageBoxButtons.OK);
+                     puntos_2jugadores();
+                     puntos_jugador1 = 22;
+                     puntos_jugador2 = 22;
+
+                 }
+                 //empieza el juego normal
+              while (puntos_jugador1 < 21)
+             {
+                 DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador1 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                 if (Asking_for_card == DialogResult.Yes)
+                 {
+                     carta_aleatoria_jugador1();
+                     if (puntos_jugador1 > 21)
+                     {
+                         DialogResult Lose = MessageBox.Show("¡Has perdido!", "King Dice", MessageBoxButtons.OK);
+                         puntos_2jugadores();
+                         break;
+
+                     }
+                     if (puntos_jugador1 == 21)
+                     {
+                         dealer_perdio();
+                         puntos_2jugadores();
+                         puntos_jugador2 = 22;
+                         break;
+                     }
+                 }
+                 if (Asking_for_card == DialogResult.No)
+                 {
+                     DialogResult Dealer_points = MessageBox.Show("Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                     break;
+                 }
+             }
+           
+           
+                  while (puntos_jugador2 < 21)
+                  {
+                      DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador2 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                      if (Asking_for_card == DialogResult.Yes)
+                      {
+                          carta_aleatoria_jugador2();
+                          if (puntos_jugador2 > 21)
+                          {
+                              DialogResult Lose = MessageBox.Show("¡Has perdido!", "King Dice", MessageBoxButtons.OK);
+                              if ( puntos_jugador1>21 && puntos_jugador2>21)
+                              {
+                                  DialogResult dealerpoints = MessageBox.Show("Les he ganado!", "King Dice", MessageBoxButtons.OK);
+                              }
+                              puntos_2jugadores();
+
+                              break;
+
+                          }
+                          if (puntos_jugador2 == 21)
+                          {
+                              dealer_perdio();
+                              puntos_2jugadores();
+                              break;
+                          }
+                      }
+                      if (Asking_for_card == DialogResult.No)
+                      {
+                          DialogResult Dealer_points = MessageBox.Show("Veamos quien gana", "King Dice", MessageBoxButtons.OK);
+                          if (puntos_dealer > puntos_jugador1 && puntos_dealer < 21 && puntos_dealer > puntos_jugador2 && puntos_dealer < 21)
+                          {
+                              DialogResult dealerpoints = MessageBox.Show("Ja, parece que gané!", "King Dice", MessageBoxButtons.OK);
+                              puntos_2jugadores();
+                          }
+                          if (puntos_dealer == 21)
+                          {
+                              DialogResult dealerpoints = MessageBox.Show("Ja, su alma es mia!", "King Dice", MessageBoxButtons.OK);
+                              puntos_2jugadores();
+                          }
+
+                          if (puntos_dealer < puntos_jugador1 && puntos_dealer < 21 || puntos_dealer < puntos_jugador2 && puntos_dealer < 21)
+                          {
+                              DialogResult dealerpoints = MessageBox.Show("Me han ganado!", "King Dice", MessageBoxButtons.OK);
+                              puntos_2jugadores();
+                          }
+                          if (puntos_jugador1 == puntos_dealer || puntos_jugador2 == puntos_dealer)
+                          {
+                              DialogResult Win = MessageBox.Show("Parece que es un empate", "King Dice", MessageBoxButtons.OK);
+                              puntos_2jugadores();
+
+                          }
+                          break;
+
+                      }
+                  }
+
+              
 
 
                  
@@ -95,6 +323,7 @@ namespace Programa_Black_Jack
          }
          //Al dar click al boton btntrheeplayer se cargará la partida para tres jugadores si el usuario presiona OK en la messagebox
          //caso contrario, regresa al menu
+             
          private void btnthreeplayer_Click(object sender, EventArgs e)
          {
 
@@ -109,7 +338,165 @@ namespace Programa_Black_Jack
                  player1();
                  player2();
                  player3();
+                 //Se hace el primer reparto de cartas
+                 DialogResult Conversation_first = MessageBox.Show("¿Listos? Si pierden, ¡su alma será mía!", "King Dice", MessageBoxButtons.OK);
+                 if (Conversation_first == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                     carta_aleatoria_jugador2();
+                     carta_aleatoria_jugador3();
+                 }
+                 DialogResult Conversation_second = MessageBox.Show("¡Comencemos!", "King Dice", MessageBoxButtons.OK);
 
+                 if (Conversation_second == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                     carta_aleatoria_jugador2();
+                     carta_aleatoria_jugador3();
+                 }
+                 //situaciones iniciales
+                 //empieza el juego (situaciones iniciales: 21 o empate);
+                 if (puntos_jugador1 == 21 || puntos_jugador2 == 21 || puntos_jugador3 == 21)
+                 {
+                     DialogResult Win = MessageBox.Show("Parece que me han ganado", "King Dice", MessageBoxButtons.OK);
+                     puntos_3jugadores();
+                     puntos_jugador1 = 22;
+                     puntos_jugador2 = 22;
+                     puntos_jugador3 = 22;
+
+                 }
+        
+                 //empieza juego normal
+                 while (puntos_jugador1 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador1 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador1();
+                         if (puntos_jugador1 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido! Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                             puntos_3jugadores();
+                             break;
+
+                         }
+                         if (puntos_jugador1 == 21)
+                         {
+                             dealer_perdio();
+                             puntos_3jugadores();
+                             puntos_jugador1 = 22;
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                         break;
+                     }
+                 }
+                 while (puntos_jugador2 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador2 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador2();
+                         if (puntos_jugador2 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido! Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                             if (puntos_jugador1 > 21 && puntos_jugador2 > 21 && puntos_jugador3 > 21)
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Les he ganado!", "King Dice", MessageBoxButtons.OK);
+                             }
+                             puntos_3jugadores();
+
+                             break;
+
+                         }
+                         if (puntos_jugador2 == 21)
+                         {
+                             dealer_perdio();
+                             puntos_3jugadores();
+                             puntos_jugador2 = 22;
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                         break;
+
+                     }
+                 }
+                 while (puntos_jugador3 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador3 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador3();
+                         if (puntos_jugador3 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido!", "King Dice", MessageBoxButtons.OK);
+                             if (puntos_jugador1 > 21 && puntos_jugador2 > 21 && puntos_jugador3 >21)
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Les he ganado!", "King Dice", MessageBoxButtons.OK);
+                             }
+                             if (puntos_jugador1 == puntos_jugador2 &&  puntos_dealer <puntos_jugador1)
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Me han ganado", "King Dice", MessageBoxButtons.OK);
+                             }
+                             if ((puntos_jugador1 > puntos_dealer && puntos_jugador1 < 21) || (puntos_jugador2 > puntos_dealer && puntos_jugador2 < 21))
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Me han ganado", "King Dice", MessageBoxButtons.OK);
+                             }
+                             puntos_3jugadores();
+
+                             break;
+
+                         }
+                         if (puntos_jugador3 == 21)
+                         {
+                             DialogResult Win = MessageBox.Show("Parece que me has ganado", "King Dice", MessageBoxButtons.OK);
+                             puntos_3jugadores();
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Veamos quien gana", "King Dice", MessageBoxButtons.OK);
+                         if ((puntos_dealer > puntos_jugador1 && puntos_dealer < 21) && (puntos_dealer > puntos_jugador2 && puntos_dealer < 21) && (puntos_dealer > puntos_jugador3 && puntos_dealer < 21))
+                         {
+                             DialogResult dealerpoints = MessageBox.Show("Ja, parece que gané!", "King Dice", MessageBoxButtons.OK);
+                             puntos_3jugadores();
+                         }
+                         if (puntos_dealer == 21)
+                         {
+                             DialogResult dealerpoints = MessageBox.Show("Ja, su alma es mia!", "King Dice", MessageBoxButtons.OK);
+                             puntos_3jugadores();
+                         }
+
+                         if (puntos_dealer < puntos_jugador1 && puntos_dealer < 21 || puntos_dealer < puntos_jugador2 && puntos_dealer < 21 || puntos_dealer < puntos_jugador3 && puntos_dealer < 21)
+                         {
+                             DialogResult dealerpoints = MessageBox.Show("Me han ganado!", "King Dice", MessageBoxButtons.OK);
+                             puntos_3jugadores();
+                         }
+                         if (puntos_jugador1 == puntos_dealer || puntos_jugador2 == puntos_dealer || puntos_jugador3 == puntos_dealer)
+                         {
+                             DialogResult Win = MessageBox.Show("Parece que es un empate", "King Dice", MessageBoxButtons.OK);
+                             puntos_3jugadores();
+
+                         }
+                         break;
+
+                     }
+                 }
+
+
+           
              }
          }
          //Al dar click al boton btnfourplayer se cargará la partida para cuatro jugadores si el usuario presiona OK en la messagebox
@@ -128,6 +515,193 @@ namespace Programa_Black_Jack
                  player2();
                  player3();
                  player4();
+                 //Se hace el primer reparto de cartas
+                 DialogResult Conversation_first = MessageBox.Show("¿Listos? Si pierden, ¡su alma será mía!", "King Dice", MessageBoxButtons.OK);
+                 if (Conversation_first == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                     carta_aleatoria_jugador2();
+                     carta_aleatoria_jugador3();
+                     carta_aleatoria_jugador4();
+                     
+                 }
+                 DialogResult Conversation_second = MessageBox.Show("¡Comencemos!", "King Dice", MessageBoxButtons.OK);
+
+                 if (Conversation_second == DialogResult.OK)
+                 {
+                     carta_aleatoria_dealer();
+                     carta_aleatoria_jugador1();
+                     carta_aleatoria_jugador2();
+                     carta_aleatoria_jugador3();
+                     carta_aleatoria_jugador4();
+                 }
+                 //situaciones iniciales
+                 //empieza el juego (situaciones iniciales: 21);
+                 if (puntos_jugador1 == 21 || puntos_jugador2 == 21 || puntos_jugador3 == 21 || puntos_jugador4 == 21)
+                 {
+                     DialogResult Win = MessageBox.Show("Parece que me han ganado", "King Dice", MessageBoxButtons.OK);
+                     puntos_4jugadores();
+                     puntos_jugador1 = 22;
+                     puntos_jugador2 = 22;
+                     puntos_jugador3 = 22;
+                     puntos_jugador4 = 22;
+                 }
+                 while (puntos_jugador1 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador1 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador1();
+                         if (puntos_jugador1 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido! Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                             break;
+
+                         }
+                         if (puntos_jugador1 == 21)
+                         {
+                             dealer_perdio();
+                             puntos_4jugadores();
+                             puntos_jugador2 = 22;
+                             puntos_jugador3 = 22;
+                             puntos_jugador4 = 22;
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                         break;
+                     }
+                 }
+                 while (puntos_jugador2 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador2 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador2();
+                         if (puntos_jugador2 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido! Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                             break;
+                         }
+                         if (puntos_jugador2 == 21)
+                         {
+                             dealer_perdio();
+                             puntos_4jugadores();
+                             puntos_jugador3 = 22;
+                             puntos_jugador4 = 22;
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                         break;
+
+                     }
+                 }
+                 while (puntos_jugador3 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador3 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador3();
+                         if (puntos_jugador3 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido! Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                             break;
+                         }
+                         if (puntos_jugador3 == 21)
+                         {
+                             dealer_perdio();
+                             puntos_4jugadores();
+                             puntos_jugador4 = 22;
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Pasemos al siguiente jugador", "King Dice", MessageBoxButtons.OK);
+                         break;
+
+                     }
+                 }
+                 while (puntos_jugador4 < 21)
+                 {
+                     DialogResult Asking_for_card = MessageBox.Show("Llevas " + puntos_jugador4 + " puntos ¿Quieres otra carta?", "King Dice", MessageBoxButtons.YesNo);
+
+                     if (Asking_for_card == DialogResult.Yes)
+                     {
+                         carta_aleatoria_jugador4();
+                         if (puntos_jugador4 > 21)
+                         {
+                             DialogResult Lose = MessageBox.Show("¡Has perdido!", "King Dice", MessageBoxButtons.OK);
+                             if (puntos_jugador1 > 21 && puntos_jugador2 > 21 && puntos_jugador3 > 21)
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Les he ganado!", "King Dice", MessageBoxButtons.OK);
+                                 puntos_4jugadores();
+                             }
+                             if ((puntos_jugador1 == puntos_jugador2 && puntos_dealer < puntos_jugador1) || (puntos_jugador1 == puntos_jugador3 && puntos_dealer < puntos_jugador1) || (puntos_jugador3 == puntos_jugador2 && puntos_dealer < puntos_jugador3))
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Me han ganado", "King Dice", MessageBoxButtons.OK);
+                                 puntos_4jugadores();
+                             }
+                             if ((puntos_jugador1 > puntos_dealer && puntos_jugador1 < 21) || (puntos_jugador2 > puntos_dealer && puntos_jugador2 < 21) || (puntos_jugador3 > puntos_dealer && puntos_jugador2 < 21))
+                             {
+                                 DialogResult dealerpoints = MessageBox.Show("Me han ganado", "King Dice", MessageBoxButtons.OK);
+                                 puntos_4jugadores();
+                             }
+                            
+
+                             break;
+
+                         }
+                         if (puntos_jugador4 == 21)
+                         {
+                             DialogResult Win = MessageBox.Show("Parece que me has ganado, jefe", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                             break;
+                         }
+                     }
+                     if (Asking_for_card == DialogResult.No)
+                     {
+                         DialogResult Dealer_points = MessageBox.Show("Veamos si me ganan", "King Dice", MessageBoxButtons.OK);
+                         if ((puntos_dealer > puntos_jugador1 && puntos_dealer < 21) && (puntos_dealer > puntos_jugador2 && puntos_dealer < 21) && (puntos_dealer > puntos_jugador3 && puntos_dealer < 21) && (puntos_dealer > puntos_jugador4 && puntos_dealer < 21))
+                         {
+                             DialogResult dealerpoints = MessageBox.Show("Ja, parece que gané!", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                         }
+                         if (puntos_dealer == 21)
+                         {
+                             DialogResult dealerpoints = MessageBox.Show("Ja, su alma es mia!", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                         }
+
+                         if (puntos_dealer < puntos_jugador1 && puntos_jugador1 < 21 || puntos_dealer < puntos_jugador2 && puntos_jugador2 < 21 || puntos_dealer < puntos_jugador3 && puntos_jugador3 < 21 || puntos_dealer < puntos_jugador4 && puntos_jugador4 < 21)
+                         {
+                             DialogResult dealerpoints = MessageBox.Show("Me han ganado!", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+                         }
+                         if (puntos_jugador1 == puntos_dealer || puntos_jugador2 == puntos_dealer || puntos_jugador3 == puntos_dealer || puntos_jugador4 == puntos_dealer)
+                         {
+                             DialogResult Win = MessageBox.Show("Parece que es un empate", "King Dice", MessageBoxButtons.OK);
+                             puntos_4jugadores();
+
+                         }
+                         break;
+
+                     }
+                 }
+
+          
              }
             
          }
@@ -283,12 +857,40 @@ namespace Programa_Black_Jack
            lbl_title.Enabled = false;
            MenuSong.Stop();
         }
+        //fUNCIÓN que hace visible el menu
+        void rehacer_menu()
+        {
+            btnoneplayer.Visible = true;
+            btntwoplayer.Visible = true;
+            btnthreeplayer.Visible = true;
+            btnfourplayer.Visible = true;
+            Picbx_left.Visible = true;
+            Picbx_right.Visible = true;
+            lbl_subtitle.Visible = true;
+            lbl_title.Visible = true;
+            btnoneplayer.Enabled = true;
+            btntwoplayer.Enabled = true;
+            btnthreeplayer.Enabled = true;
+            btnfourplayer.Enabled = true;
+            Picbx_left.Enabled = true;
+            Picbx_right.Enabled = true;
+            lbl_subtitle.Enabled = true;
+            lbl_title.Enabled = true;
+           
+        }
+
+
+
+
+
         //Función que genera al dealer
         void dealer()
         {
+           dealer_x = 470;
+           dealer_y = 25;
            Picbxdealer.Height = 70;
            Picbxdealer.Width = 70;
-           Picbxdealer.Location = new Point(470,25);
+           Picbxdealer.Location = new Point(dealer_x,dealer_y);
            Picbxdealer.Load(@"..\..\Players\dealer.jpg");
            Picbxdealer.SizeMode = PictureBoxSizeMode.StretchImage;
            Controls.Add(Picbxdealer);
@@ -302,6 +904,7 @@ namespace Programa_Black_Jack
         //Función que genera al jugador 1
         void player1()
         {
+           
             Picbxplayer1.Height = 55;
             Picbxplayer1.Width = 55;
             Picbxplayer1.Load(@"..\..\Players\player1.jpg");
@@ -309,13 +912,14 @@ namespace Programa_Black_Jack
             Controls.Add(Picbxplayer1);
             lblplayer1.Height = 15;
             lblplayer1.Width = 80;
-            lblplayer1.Text = ("Jugador 1");
+            lblplayer1.Text = ("Cuphead");
             lblplayer1.Font = new Font("Arial", 9);
             Controls.Add(lblplayer1);
         }
         //función que genera al jugador 2
         void player2()
         {
+            
             Picbxplayer2.Height = 55;
             Picbxplayer2.Width = 55;
             Picbxplayer2.Load(@"..\..\Players\player2.jpg");
@@ -323,13 +927,14 @@ namespace Programa_Black_Jack
             Controls.Add(Picbxplayer2);
             lblplayer2.Height = 15;
             lblplayer2.Width = 80;
-            lblplayer2.Text = ("Jugador 2");
+            lblplayer2.Text = ("Mugman");
             lblplayer2.Font = new Font("Arial", 9);
             Controls.Add(lblplayer2);
         }
         //función que genera al jugador 3
         void player3()
         {
+            
             Picbxplayer3.Height = 60;
             Picbxplayer3.Width = 60;
             Picbxplayer3.Load(@"..\..\Players\player3.jpg");
@@ -337,13 +942,14 @@ namespace Programa_Black_Jack
             Controls.Add(Picbxplayer3);
             lblplayer3.Height = 15;
             lblplayer3.Width = 80;
-            lblplayer3.Text = ("Jugador 3");
+            lblplayer3.Text = ("Elder Kettle");
             lblplayer3.Font = new Font("Arial", 9);
             Controls.Add(lblplayer3);
         }
         //función que genera al jugador 4
         void player4()
-        {
+        {  
+            
             Picbxplayer4.Height = 90;
             Picbxplayer4.Width = 90;
             Picbxplayer4.Load(@"..\..\Players\player4.jpg");
@@ -351,48 +957,445 @@ namespace Programa_Black_Jack
             Controls.Add(Picbxplayer4);
             lblplayer4.Height = 15;
             lblplayer4.Width = 80;
-            lblplayer4.Text = ("Jugador 4");
+            lblplayer4.Text = ("Devil");
             lblplayer4.Font = new Font("Arial", 9);
-            Controls.Add(lblplayer4);
+            Controls.Add(lblplayer4); 
+          
+        
+        
+       
+       
         }
         //Función para determinar en qué posición estarán los jugadores
         void posicion_de_jugador()
         {
+            //Posición para un jugador
             if (num_jugadores == 1)
             { 
-                Picbxplayer1.Location = new Point(485,640);
-                lblplayer1.Location = new Point(487, 695);
+                //Coordenadas para player 1 y su label
+                player1_x = 485;
+                player1_y = 640;
+                Picbxplayer1.Location = new Point(player1_x,player1_y);
+                lblplayer1.Location = new Point(player1_x + 2, player1_y + 55);
             }
+            //Posicion para dos jugadores
             if (num_jugadores == 2)
             {
-                Picbxplayer1.Location = new Point(252, 640);
-                lblplayer1.Location = new Point(257, 695);
-                Picbxplayer2.Location = new Point(742, 640);
-                lblplayer2.Location = new Point(747, 695);
+                //Coordenadas para player1 y su label
+                player1_x = 742;
+                player1_y = 640;
+                Picbxplayer1.Location = new Point(player1_x, player1_y);
+                lblplayer1.Location = new Point(player1_x + 5 , player1_y + 55);
+                //coordenadas para player2 y su label
+                player2_x = 252;
+                player2_y = 640;
+                Picbxplayer2.Location = new Point(player2_x,player2_y);
+                lblplayer2.Location = new Point(player2_x + 5, player2_y + 55);
             }
+            //posición para tres jugadores
             if (num_jugadores == 3)
             {
-                Picbxplayer1.Location = new Point(252, 640);
-                lblplayer1.Location = new Point(257, 695);
-                Picbxplayer2.Location = new Point(742, 640);
-                lblplayer2.Location = new Point(747, 695);
-                Picbxplayer3.Location = new Point(5, 300);
-                lblplayer3.Location = new Point(5, 360);
+                //Coordenadas para player1 y su label
+                player1_x = 990;
+                player1_y = 250;
+                Picbxplayer1.Location = new Point(player1_x, player1_y);
+                lblplayer1.Location = new Point(player1_x + 5, player1_y + 55);
+                //coordenadas para player2 y su label
+                player2_x = 742;
+                player2_y = 640;
+                Picbxplayer2.Location = new Point(player2_x, player2_y);
+                lblplayer2.Location = new Point(player2_x + 5, player2_y + 55);
+                //Coordenadas para player3 y su label
+                player3_x = 252;
+                player3_y = 640;
+                Picbxplayer3.Location = new Point(player3_x, player3_y);
+                lblplayer3.Location = new Point(player3_x, player3_y + 60);
             }
+            //posiciones para tres jugadores
             if (num_jugadores == 4)
             {
-                Picbxplayer1.Location = new Point(252, 640);
-                lblplayer1.Location = new Point(257, 695);
-                Picbxplayer2.Location = new Point(742, 640);
-                lblplayer2.Location = new Point(747, 695);
-                Picbxplayer3.Location = new Point(5, 300);
-                lblplayer3.Location = new Point(5, 360);
-                Picbxplayer4.Location = new Point(1005, 250);
-                lblplayer4.Location = new Point(1010, 340);
+                //Coordenadas para player1 y su label
+                player1_x = 1005;
+                player1_y = 250;
+                Picbxplayer1.Location = new Point(player1_x, player1_y);
+                lblplayer1.Location = new Point(player1_x + 5, player1_y + 55);
+                //coordenadas para player2 y su label
+                player2_x = 742;
+                player2_y = 640;
+                Picbxplayer2.Location = new Point(player2_x, player2_y);
+                lblplayer2.Location = new Point(player2_x + 5, player2_y + 55);
+                //Coordenadas para player3 y su label
+                player3_x = 252;
+                player3_y = 640;
+                Picbxplayer3.Location = new Point(player3_x, player3_y);
+                lblplayer3.Location = new Point(player3_x, player3_y + 60);
+                //Coordenadas para player4 y su label
+                player4_x = 5;
+                player4_y = 300;
+                Picbxplayer4.Location = new Point(player4_x, player4_y);
+                lblplayer4.Location = new Point(player4_x + 5, player4_y + 90);
             }
 
 
         }
+        //función que genera la carta del jugador 1 dependiendo del numero aleatorio generado por la función "random" y cuyo resultado es reflejado en numero_random
+        void CartaDealer() 
+        {  
+            PictureBox PicbxCarddealer = new PictureBox();
+            PicbxCarddealer.Height = 70;
+            PicbxCarddealer.Width = 47;
+            PicbxCarddealer.Location = new Point(dealer_x - 50, dealer_y + 90);
+            PicbxCarddealer.Load(@"..\..\Cards\" + numero_random + ".jpg");
+            PicbxCarddealer.SizeMode = PictureBoxSizeMode.StretchImage;
+            Controls.Add(PicbxCarddealer);
+        }
+        void CartaPlayer1()
+        {
+            PictureBox PicbxCardplayer1 = new PictureBox();
+            PicbxCardplayer1.Height = 70;
+            PicbxCardplayer1.Width = 47;
+            PicbxCardplayer1.Location = new Point(player1_x - 50,player1_y-70);
+            PicbxCardplayer1.Load(@"..\..\Cards\"+numero_random  +".jpg");
+            PicbxCardplayer1.SizeMode = PictureBoxSizeMode.StretchImage;
+            Controls.Add(PicbxCardplayer1);
+        }
+        //función que genera la carta del jugador 2 dependiendo del numero aleatorio generado por la función "random" y cuyo resultado es reflejado en numero_random
+        void CartaPlayer2()
+        {
+            PictureBox PicbxCardplayer2 = new PictureBox();
+            PicbxCardplayer2.Height = 65;
+            PicbxCardplayer2.Width = 43;
+            PicbxCardplayer2.Location = new Point(player2_x, player2_y-70);
+            PicbxCardplayer2.Load(@"..\..\Cards\" + numero_random + ".jpg");
+            PicbxCardplayer2.SizeMode = PictureBoxSizeMode.StretchImage;
+            Controls.Add(PicbxCardplayer2);
+        }
+        //función que genera la carta del jugador 3 dependiendo del numero aleatorio generado por la función "random" y cuyo resultado es reflejado en numero_random
+        void CartaPlayer3()
+        {PictureBox PicbxCardplayer3 = new PictureBox();
+            PicbxCardplayer3.Height = 65;
+            PicbxCardplayer3.Width = 43;
+            PicbxCardplayer3.Location = new Point(player3_x, player3_y-70);
+            PicbxCardplayer3.Load(@"..\..\Cards\" + numero_random + ".jpg");
+            PicbxCardplayer3.SizeMode = PictureBoxSizeMode.StretchImage;
+            Controls.Add(PicbxCardplayer3);
+        }
+        //función que genera la carta del jugador 4 dependiendo del numero aleatorio generado por la función "random" y cuyo resultado es reflejado en numero_random
+        void CartaPlayer4()
+        {
+            PictureBox PicbxCardplayer4 = new PictureBox();
+            PicbxCardplayer4.Height = 65;
+            PicbxCardplayer4.Width = 43;
+            PicbxCardplayer4.Location = new Point(player4_x, player4_y-70);
+            PicbxCardplayer4.Load(@"..\..\Cards\" + numero_random + ".jpg");
+            PicbxCardplayer4.SizeMode = PictureBoxSizeMode.StretchImage;
+            Controls.Add(PicbxCardplayer4);
+        }
+
+        void random()
+        {
+           
+            numero_random = numero_aleatorio.Next(1, 53);
+        }
+
+        //Función que hace que no se repitan las cartas dadas al jugador 1 y determina las nuevas posiciones de las cartas generadas
+        void carta_aleatoria_jugador1()
+        {
+            random();
+            if (Baraja[numero_random - 1] == 0)
+            {
+                while (Baraja[numero_random - 1] == 0)
+                {
+                    random();
+                }
+                CartaPlayer1();
+                player1_x += 30;
+                Baraja[numero_random - 1] = 0;
+                
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As Cuphead?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador1 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador1 += 1;
+                    }
+                }
+                puntos_jugador1 += Baraja_puntos [numero_random - 1];
+            }
+            else
+            {
+                CartaPlayer1();
+                player1_x += 30;
+                Baraja[numero_random - 1] = 0;
+                
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As Cuphead?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador1 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador1 += 1;
+                    }
+                }
+                puntos_jugador1 += Baraja_puntos [numero_random - 1];
+            }
+        }
+        //función que genera las cartas dadas a jugador 2, determina sus posiciones  así como su valor 
+        void carta_aleatoria_jugador2()
+        {
+            random();
+            if (Baraja[numero_random - 1] == 0)
+            {
+                while (Baraja[numero_random - 1] == 0)
+                {
+                    random();
+                }
+                CartaPlayer2();
+                player2_x += 30;
+                Baraja[numero_random - 1] = 0;
+
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As Mugman?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador2 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador2 += 1;
+                    }
+                }
+                puntos_jugador2 += Baraja_puntos[numero_random - 1];
+            }
+            else
+            {
+                CartaPlayer2();
+                player2_x += 30;
+                Baraja[numero_random - 1] = 0;
+
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As Mugman?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador2 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador2 += 1;
+                    }
+                }
+                puntos_jugador2 += Baraja_puntos[numero_random - 1];
+            }
+        }
+        //función que genera las cartas dadas a jugador 3, determina sus posiciones  así como su valor 
+        void carta_aleatoria_jugador3()
+        {
+            random();
+            if (Baraja[numero_random - 1] == 0)
+            {
+                while (Baraja[numero_random - 1] == 0)
+                {
+                    random();
+                }
+                CartaPlayer3();
+                player3_x += 30;
+                Baraja[numero_random - 1] = 0;
+
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As Elder Kettle?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador3 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador3 += 1;
+                    }
+                }
+                puntos_jugador3 += Baraja_puntos[numero_random - 1];
+            }
+            else
+            {
+                CartaPlayer3();
+                player3_x += 30;
+                Baraja[numero_random - 1] = 0;
+
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As Elder Kittle?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador3 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador3 += 1;
+                    }
+                }
+                puntos_jugador3 += Baraja_puntos[numero_random - 1];
+            }
+        }
+        //función que genera las cartas dadas a jugador 3, determina sus posiciones  así como su valor 
+        void carta_aleatoria_jugador4()
+        {
+            random();
+            if (Baraja[numero_random - 1] == 0)
+            {
+                while (Baraja[numero_random - 1] == 0)
+                {
+                    random();
+                }
+                CartaPlayer4();
+                player4_x += 30;
+                Baraja[numero_random - 1] = 0;
+
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quiere que valga el As, Jefe?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador4 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador4 += 1;
+                    }
+                }
+                puntos_jugador4 += Baraja_puntos[numero_random - 1];
+            }
+            else
+            {
+                CartaPlayer4();
+                player4_x += 30;
+                Baraja[numero_random - 1] = 0;
+
+                if (Baraja_puntos[numero_random - 1] == 0)
+                {
+                    DialogResult As = MessageBox.Show("¿Cuánto Quieres que valga el As, Jefe?, si das Sí valdra 11, si das no valdrá 1", "King Dice", MessageBoxButtons.YesNo);
+                    if (As == DialogResult.Yes)
+                    {
+                        puntos_jugador4 += 11;
+                    }
+                    if (As == DialogResult.No)
+                    {
+                        puntos_jugador4 += 1;
+                    }
+                }
+                puntos_jugador4 += Baraja_puntos[numero_random - 1];
+            }
+        }
+
+
+
+        //Función que hace que no se repitan las cartas dadas al dealer y determina las nuevas posiciones de las cartas generadas
+        void carta_aleatoria_dealer()
+        {
+            random();
+
+            if (Baraja[numero_random - 1] == 0)
+            {
+                while (Baraja[numero_random - 1] == 0)
+                {
+                    random();
+                }
+                CartaDealer();
+                dealer_x += 30;
+                Baraja[numero_random - 1] = 0;
+               
+                if (Baraja_puntos[ numero_random -1]==0 )
+                {
+                    puntos_dealer += 11;
+                }
+          
+                puntos_dealer += Baraja_puntos[numero_random - 1];
+ 
+            }
+            else
+            {
+                CartaDealer();
+                dealer_x += 30;
+                Baraja[numero_random - 1] = 0;
+                
+                if (Baraja_puntos[numero_random - 1] == 0 )
+                {
+                    puntos_dealer += 11;
+                }
+                puntos_dealer += Baraja_puntos[numero_random - 1];
+            }
+          
+        }
+        //Función que escribe los resultados para 1 jugador sobre las puntaciones de la partida
+         void puntos_1jugador()
+        {
+            string puntosjugador1 = Convert.ToString(puntos_jugador1);
+            string puntosdealer = Convert.ToString(puntos_dealer);
+            List<string> ListaPuntos = new List<string>() { "Cuphead "+ puntosjugador1, "dealer: " + puntosdealer };
+            using (StreamWriter escribir = new StreamWriter(@"..\..\Files\Resultados.txt")) 
+            {
+                foreach (string x in ListaPuntos)
+                {
+                    escribir.WriteLine(x);
+                }
+            }
+        }
+         //Función que escribe los resultados para 1 jugador sobre las puntaciones de la partida
+         void puntos_2jugadores()
+         {
+             string puntosjugador1 = Convert.ToString(puntos_jugador1);
+             string puntosjugador2 = Convert.ToString(puntos_jugador2);
+             string puntosdealer = Convert.ToString(puntos_dealer);
+             List<string> ListaPuntos = new List<string>() { "Cuphead: " + puntosjugador1, "Mugman: " + puntosjugador2 , "dealer: " + puntosdealer };
+             using (StreamWriter escribir = new StreamWriter(@"..\..\Files\Resultados.txt"))
+             {
+                 foreach (string x in ListaPuntos)
+                 {
+                     escribir.WriteLine(x);
+                 }
+             }
+         }
+         //Función que escribe los resultados para 1 jugador sobre las puntaciones de la partida
+         void puntos_3jugadores()
+         {
+             string puntosjugador1 = Convert.ToString(puntos_jugador1);
+             string puntosjugador2 = Convert.ToString(puntos_jugador2);
+             string puntosjugador3 = Convert.ToString(puntos_jugador3);
+             string puntosdealer = Convert.ToString(puntos_dealer);
+             List<string> ListaPuntos = new List<string>() { "Cuphead: " + puntosjugador1, "Mugman: " + puntosjugador2, "Elder Kettle: " + puntosjugador3, "Dealer: " + puntosdealer };
+             using (StreamWriter escribir = new StreamWriter(@"..\..\Files\Resultados.txt"))
+             {
+                 foreach (string x in ListaPuntos)
+                 {
+                     escribir.WriteLine(x);
+                 }
+             }
+         }
+         //Función que escribe los resultados para 1 jugador sobre las puntaciones de la partida
+         void puntos_4jugadores()
+         {
+             string puntosjugador1 = Convert.ToString(puntos_jugador1);
+             string puntosjugador2 = Convert.ToString(puntos_jugador2);
+             string puntosjugador3 = Convert.ToString(puntos_jugador3);
+             string puntosjugador4 = Convert.ToString(puntos_jugador4);
+             string puntosdealer = Convert.ToString(puntos_dealer);
+             List<string> ListaPuntos = new List<string>() { "Cuphead: " + puntosjugador1, "Mugman: " + puntosjugador2, "Elder Kettle: " + puntosjugador3,"Devil: "+ puntosjugador4 , "dealer:" + puntosdealer };
+             using (StreamWriter escribir = new StreamWriter(@"..\..\Files\Resultados.txt"))
+             {
+                 foreach (string x in ListaPuntos)
+                 {
+                     escribir.WriteLine(x);
+                 }
+             }
+         }
 
            
 
